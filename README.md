@@ -4,8 +4,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ### Functions
 -Consumo de Api de la pagina https://www.themoviedb.org/?language=es
+
 -Infinite Scroll
+
 -Search by title
+
 -Cast slideShow by movie
 
 
