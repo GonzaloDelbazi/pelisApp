@@ -45,4 +45,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.moviesSlideShow = movies;
     });
   }
+
+  newFavorite(movie: Movie) {
+    console.log(movie)
+  }
 }

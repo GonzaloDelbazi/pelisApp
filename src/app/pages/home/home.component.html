@@ -10,4 +10,4 @@
 
 <h1 class="mt-5">Peliculas</h1>
 <hr>
-<app-peliculas-poster-grid *ngIf="movies.length > 0" [movies]="movies"></app-peliculas-poster-grid>
+<app-peliculas-poster-grid *ngIf="movies.length > 0" (fav)="newFavorite($event)" [movies]="movies"></app-peliculas-poster-grid>

@@ -1,19 +1,33 @@
-import { Injectable, Pipe } from '@angular/core';
+import { Injectable, EventEmitter, Output, Pipe } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, pipe } from 'rxjs';
+import { Observable, BehaviorSubject, of, pipe } from 'rxjs';
 import { CarteleraResponse, Movie } from '../interfaces/cartelera-response';
 import {catchError, map, tap} from 'rxjs/operators';
 import { MovieDetails } from '../interfaces/movie-details';
 import { CreditResponse } from '../interfaces/credits-response';
 
-@Injectable({
-  providedIn: 'root'
-})
+
+export interface Persona {
+  nombre: string;
+}
+@Injectable({providedIn: 'root'})
+
 export class PeliculasService {
+  @Output() fav: EventEmitter<Movie> = new EventEmitter()
   // https://api.themoviedb.org/3/search/movie?api_key=37fbad42bc36e5a22302a1d4b9322e35&language=es-ES&page=1&include_adult=false
   private baseUrl = 'https://api.themoviedb.org/3';
   private carteleraPage = 1;
   public cargando = false;
+  
+  public sharingFavs: BehaviorSubject<Persona> = new BehaviorSubject<Persona>({nombre: 'Gonzalo'});
+
+  get sharingFavsData() {
+    return this.sharingFavs.getValue();
+  }
+  
+  set SharingFavsPrivate(data: Persona) {
+    this.sharingFavs.next(data);
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +38,6 @@ export class PeliculasService {
       page: this.carteleraPage.toString()
     };
   }
-
 
   resetCarteleraPage(){
     this.carteleraPage = 1;
@@ -69,5 +82,6 @@ export class PeliculasService {
     return this.http.get<CreditResponse>(`${this.baseUrl}/movie/${id}/credits?`, {params: this.params})
     .pipe(map(resp => resp.cast));
   }
+
 
 }

@@ -4,23 +4,26 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { SlideshowComponent } from './slideshow/slideshow.component';
 import { PeliculasPosterGridComponent } from './peliculas-poster-grid/peliculas-poster-grid.component';
-import { RatingModule } from 'ng-starrating';
 import { PipesModule } from '../pipes/pipes.module';
 import { CastSlideshowComponent } from './cast-slideshow/cast-slideshow.component';
-
-
+import { SideBarComponent } from './side-bar/side-bar.component';
+import { CoreModule } from '../services/core.module';
 
 @NgModule({
-  declarations: [NavbarComponent, SlideshowComponent, PeliculasPosterGridComponent, CastSlideshowComponent],
-  imports: [
-    CommonModule,
-    RouterModule,
-    RatingModule,
-    PipesModule
+  declarations: [
+    NavbarComponent,
+    SlideshowComponent,
+    PeliculasPosterGridComponent,
+    CastSlideshowComponent,
+    SideBarComponent,
   ],
-  exports: [NavbarComponent,
-  SlideshowComponent,
-  PeliculasPosterGridComponent,
-  CastSlideshowComponent]
+  imports: [CommonModule, RouterModule, PipesModule, CoreModule],
+  exports: [
+    NavbarComponent,
+    SlideshowComponent,
+    PeliculasPosterGridComponent,
+    CastSlideshowComponent,
+    SideBarComponent,
+  ],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}
