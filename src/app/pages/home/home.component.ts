@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { PeliculasService } from '../../services/peliculas.service';
 import { Movie } from '../../interfaces/cartelera-response';
 
@@ -46,7 +46,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  newFavorite(movie: Movie) {
-    console.log(movie)
-  }
 }

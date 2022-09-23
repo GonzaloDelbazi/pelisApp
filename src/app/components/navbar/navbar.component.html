@@ -2,7 +2,7 @@
     <a class="navbar-brand" routerLink="'/home'">Peliculas</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <a class="text-white" href="/favorites">Favs</a>
+            <a class="text-white" routerLink="/favorites">Favs</a>
         </ul>
         <div class="d-flex">
             <input #txtBuscar (keyup.enter)="buscarPelicula(txtBuscar.value)" class="form-control mr-sm-2" type="search" placeholder="Buscar pelicula" aria-label="Search">

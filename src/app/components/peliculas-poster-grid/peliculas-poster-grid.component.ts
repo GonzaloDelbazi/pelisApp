@@ -10,8 +10,8 @@ import { Movie } from 'src/app/interfaces/cartelera-response';
   styleUrls: ['./peliculas-poster-grid.component.css']
 })
 export class PeliculasPosterGridComponent implements OnInit {
-  public data$: Persona
-  
+  public data$: Observable<Movie[]>
+
   @Input() movies: Movie;
   @Output() fav: EventEmitter<Movie> = new EventEmitter()
 
@@ -20,17 +20,22 @@ export class PeliculasPosterGridComponent implements OnInit {
   ngOnInit(): void {
      console.log(this.movies);
   }
-  
+
   onMovieClick(movie: Movie) {
     this.router.navigate(['/pelicula', movie.id ]);
   }
 
   saveFav(movie: Movie) {
-    this.fav.emit(movie)
+
+    this.pelisService.addFavoriteMovie(movie);
+    this.data$ = this.pelisService.favoriteMovies$;
+    console.log(this.data$)
+
+
+
+    // this.fav.emit(movie)
     // console.log('hola')
-    // this.pelisService.SharingFavsPrivate = movie
-    // this.data$ = this.pelisService.sharingFavsData
-    // console.log(this.data$)
+
   }
 
 }

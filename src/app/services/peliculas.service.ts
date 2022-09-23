@@ -18,16 +18,20 @@ export class PeliculasService {
   private baseUrl = 'https://api.themoviedb.org/3';
   private carteleraPage = 1;
   public cargando = false;
-  
-  public sharingFavs: BehaviorSubject<Persona> = new BehaviorSubject<Persona>({nombre: 'Gonzalo'});
 
-  get sharingFavsData() {
-    return this.sharingFavs.getValue();
+  private favoriteMovies = new BehaviorSubject<Movie[]>([]);
+  favoriteMovies$ = this.favoriteMovies.asObservable();
+
+  favoriteCount$: Observable<number> = this.favoriteMovies$.pipe(map(items => items.length))
+
+  addFavoriteMovie(data: Movie) {
+    this.favoriteMovies.next([...this.favoriteMovies.value, data]);
   }
-  
-  set SharingFavsPrivate(data: Persona) {
-    this.sharingFavs.next(data);
+
+  deleteFavoriteMovie(movie: Movie) {
+    this.favoriteMovies.next(this.favoriteMovies.value.filter(currentMovie => currentMovie !== movie));
   }
+
 
   constructor(private http: HttpClient) { }
 
@@ -50,9 +54,6 @@ export class PeliculasService {
     }
     this.cargando = true;
 
-  
-  
-
     return this.http.get<CarteleraResponse>(`${this.baseUrl}/movie/now_playing?`,
     {params: this.params}).pipe(
       map(resp => resp.results),
@@ -63,9 +64,9 @@ export class PeliculasService {
     );
   }
 
-  buscarPeliculas(texto: string): Observable<Movie[]>{
+  buscarPeliculas(movieName: string): Observable<Movie[]>{
 
-    const params = {...this.params, page: '1', query: texto};
+    const params = {...this.params, page: '1', query: movieName};
 
     return this.http.get<CarteleraResponse>(`${this.baseUrl}/search/movie?`, {
       params}).pipe(map ( resp => resp.results));

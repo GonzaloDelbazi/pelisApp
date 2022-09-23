@@ -7,7 +7,6 @@ import { PeliculasPosterGridComponent } from './peliculas-poster-grid/peliculas-
 import { PipesModule } from '../pipes/pipes.module';
 import { CastSlideshowComponent } from './cast-slideshow/cast-slideshow.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
-import { CoreModule } from '../services/core.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,7 @@ import { CoreModule } from '../services/core.module';
     CastSlideshowComponent,
     SideBarComponent,
   ],
-  imports: [CommonModule, RouterModule, PipesModule, CoreModule],
+  imports: [CommonModule, RouterModule, PipesModule],
   exports: [
     NavbarComponent,
     SlideshowComponent,

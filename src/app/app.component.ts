@@ -10,5 +10,6 @@ export class AppComponent {
   title = 'peliculasApp';
 
   constructor(){
+
   }
 }
