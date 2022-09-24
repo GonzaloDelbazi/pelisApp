@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public movies: Movie[] = [];
   public moviesSlideShow: Movie[] = [];
+  public favoriteMovies: Movie[];
 
   constructor(private peliculaService: PeliculasService) {
   }
@@ -27,7 +28,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (this.peliculaService.cargando) { return; }
 
       this.peliculaService.getCartelera().subscribe(movies => {
-
         this.movies.push(...movies);
       });
 
@@ -40,7 +40,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.peliculaService.favoriteMovies$.subscribe(favMovies => this.favoriteMovies = favMovies)
     this.peliculaService.getCartelera().subscribe(movies => {
+      this.favoriteMovies.forEach(favMovie => {
+        movies.map(movie => {
+          if (movie.id == favMovie.id) {
+            console.log('ESTOY')
+            movie = favMovie;
+            return movie
+          }
+          return movie;
+        })
+      })
       this.movies = movies;
       this.moviesSlideShow = movies;
     });

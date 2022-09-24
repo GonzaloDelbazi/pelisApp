@@ -10,10 +10,11 @@ import { Movie } from 'src/app/interfaces/cartelera-response';
 })
 export class FavsComponent implements OnInit {
   public data$: Observable<Movie[]>;
+  favMovies: Movie[];
 
   constructor(private pelisService: PeliculasService) {
     this.data$ = this.pelisService.favoriteMovies$;
-    console.log(this.data$)
+    this.data$.subscribe(movies => this.favMovies = movies)
   }
 
   ngOnInit(): void {

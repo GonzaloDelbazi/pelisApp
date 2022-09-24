@@ -32,7 +32,6 @@ export class PeliculasService {
     this.favoriteMovies.next(this.favoriteMovies.value.filter(currentMovie => currentMovie !== movie));
   }
 
-
   constructor(private http: HttpClient) { }
 
   get params() {
@@ -53,10 +52,12 @@ export class PeliculasService {
       return of([]);
     }
     this.cargando = true;
-
     return this.http.get<CarteleraResponse>(`${this.baseUrl}/movie/now_playing?`,
     {params: this.params}).pipe(
-      map(resp => resp.results),
+      map(resp => {
+        resp.results.map((movie: Movie) => movie.fav = false)
+        return resp.results
+      }),
       tap(() => {
         this.carteleraPage += 1;
         this.cargando = false;
