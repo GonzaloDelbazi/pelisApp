@@ -32,7 +32,6 @@ export class PeliculasService {
     this.favoriteMovies.next(this.favoriteMovies.value.filter(currentMovie => currentMovie !== movie));
   }
 
-
   constructor(private http: HttpClient) { }
 
   get params() {
@@ -53,10 +52,19 @@ export class PeliculasService {
       return of([]);
     }
     this.cargando = true;
-
     return this.http.get<CarteleraResponse>(`${this.baseUrl}/movie/now_playing?`,
     {params: this.params}).pipe(
-      map(resp => resp.results),
+      map(resp => {
+        return resp.results.map((movie: Movie) => {
+          this.favoriteMovies$.subscribe(favMovies => favMovies.forEach(favMovie => {
+            if(favMovie.id == movie.id) return movie = favMovie;
+          }));
+          if(movie?.fav == true) {
+            return movie;
+          }
+          return movie;
+        })
+      }),
       tap(() => {
         this.carteleraPage += 1;
         this.cargando = false;

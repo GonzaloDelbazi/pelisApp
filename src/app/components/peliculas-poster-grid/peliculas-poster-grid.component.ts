@@ -26,15 +26,12 @@ export class PeliculasPosterGridComponent implements OnInit {
   }
 
   saveFav(movie: Movie) {
-
+    if (!movie.fav) {
+      return this.pelisService.deleteFavoriteMovie(movie);
+    }
     this.pelisService.addFavoriteMovie(movie);
     this.data$ = this.pelisService.favoriteMovies$;
     console.log(this.data$)
-
-
-
-    // this.fav.emit(movie)
-    // console.log('hola')
 
   }
 

@@ -8,6 +8,8 @@
     </div>
 </div>
 
-<h1 class="mt-5">Peliculas</h1>
+<h1 class="mt-5">Ultimos Estrenos</h1>
+<h1 class="mt-5">Tu Lista</h1>
+<h1 class="mt-5">Ultimos Estrenos</h1>
 <hr>
 <app-peliculas-poster-grid *ngIf="movies.length > 0" (fav)="newFavorite($event)" [movies]="movies"></app-peliculas-poster-grid>

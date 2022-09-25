@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { PeliculasService } from './services/peliculas.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { PeliculasService } from './services/peliculas.service';
     HttpClientModule,
     ComponentsModule,
     PagesModule,
+    NgbModule,
   ],
   providers: [PeliculasService],
   bootstrap: [AppComponent],

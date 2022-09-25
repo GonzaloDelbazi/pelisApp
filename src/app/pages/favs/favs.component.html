@@ -1,2 +1,10 @@
-<h4 (click)="refresh()">INFO CONTENIDA DENTRO DE LA DATA</h4>
-<p>{{ (data$) }}</p>
+<h4 (click)="refresh()">Tus favoritos</h4>
+<hr />
+<div *ngIf="favMovies.length > 0; else content">
+  <app-peliculas-poster-grid [movies]="favMovies"></app-peliculas-poster-grid>
+</div>
+<ng-template #content>
+  <div class="alert bg-danger">
+    <h2>No hay favoritos</h2>
+  </div>
+</ng-template>
