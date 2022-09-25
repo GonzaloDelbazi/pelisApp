@@ -55,8 +55,15 @@ export class PeliculasService {
     return this.http.get<CarteleraResponse>(`${this.baseUrl}/movie/now_playing?`,
     {params: this.params}).pipe(
       map(resp => {
-        resp.results.map((movie: Movie) => movie.fav = false)
-        return resp.results
+        return resp.results.map((movie: Movie) => {
+          this.favoriteMovies$.subscribe(favMovies => favMovies.forEach(favMovie => {
+            if(favMovie.id == movie.id) return movie = favMovie;
+          }));
+          if(movie?.fav == true) {
+            return movie;
+          }
+          return movie;
+        })
       }),
       tap(() => {
         this.carteleraPage += 1;
